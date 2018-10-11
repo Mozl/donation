@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../App.css';
 import Donation from './Donation';
 import styled from 'styled-components';
+import MastHead from './MastHead';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,6 +10,16 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  .h1 {
+    margin-top: 0.5rem;
+    position: absolute;
+  }
+`;
+
+const DonationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 class App extends Component {
@@ -20,28 +30,30 @@ class App extends Component {
     };
   }
 
-  getData = async () =>
+  getDonationData = async () =>
     await (await fetch(
-      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita'
+      'https://api.justgiving.com/3c847946/v1/charity/18570/donations',
+      { headers: { 'Content-Type': 'application/json' } }
     ))
       .json()
       .then(data => {
-        const drinkNames = data.drinks.map(drink => drink.strDrink);
-        console.log(drinkNames);
-        this.setState({ data: drinkNames });
+        const donationData = data.donations;
+        this.setState({ data: donationData });
       });
 
-  componentWillMount() {
-    this.getData();
+  componentDidMount() {
+    this.getDonationData();
   }
 
   render() {
     const { data } = this.state;
     return (
-      <Wrapper className="App">
-        <header className="App-header">
-          <Donation data={data} height="10" />
-        </header>
+      <Wrapper>
+        <MastHead />
+        <h1>Recent Oxfam Donors</h1>
+        <DonationWrapper>
+          <Donation data={data} />
+        </DonationWrapper>
       </Wrapper>
     );
   }

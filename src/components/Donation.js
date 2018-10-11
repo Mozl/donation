@@ -13,11 +13,11 @@ class Donation extends Component {
   render() {
     const { data, height } = this.props;
     console.log('props: ', this.props);
-    return (
-      <Box data={data} height={height}>
-        <p>{data}</p>
+    return data.map((item, i) => (
+      <Box key={i} data={data} height={height}>
+        <p>{data[i]}</p>
       </Box>
-    );
+    ));
   }
 }
 

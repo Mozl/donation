@@ -10,11 +10,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: blue;
-`;
-
-const Container = styled(Wrapper)`
-  width: 100%;
 `;
 
 class App extends Component {
@@ -43,13 +38,11 @@ class App extends Component {
   render() {
     const { data } = this.state;
     return (
-      <Container>
-        <Wrapper className="App">
-          <header className="App-header">
-            <Donation data={data} height="10" />
-          </header>
-        </Wrapper>
-      </Container>
+      <Wrapper className="App">
+        <header className="App-header">
+          <Donation data={data} height="10" />
+        </header>
+      </Wrapper>
     );
   }
 }

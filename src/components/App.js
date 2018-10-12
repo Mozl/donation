@@ -30,16 +30,17 @@ class App extends Component {
     };
   }
 
-  getDonationData = async () =>
-    await (await fetch(
-      'https://api.justgiving.com/3c847946/v1/charity/18570/donations',
+  getDonationData = () => {
+    return fetch(
+      `https://api.justgiving.com/beb9b39c/v1/charity/13441/donations`,
       { headers: { 'Content-Type': 'application/json' } }
-    ))
-      .json()
-      .then(data => {
-        const donationData = data.donations;
+    )
+      .then(res => res.json())
+      .then(res => {
+        const donationData = res.donations;
         this.setState({ data: donationData });
       });
+  };
 
   componentDidMount() {
     this.getDonationData();

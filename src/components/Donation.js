@@ -14,11 +14,10 @@ const Box = styled.div`
 class Donation extends Component {
   render() {
     const { data } = this.props;
-    console.log('props: ', this.props);
     return data.map((item, i) => (
       <Box key={i} data={data}>
         <p>{data[i].donorDisplayName}</p>
-        <p>£{data[i].amount}</p>
+        {data[i].amount > 0 && <p>£{data[i].amount}</p>}
         <img alt="donor" src={data[i].imageUrl} height="70" width="70" />
       </Box>
     ));

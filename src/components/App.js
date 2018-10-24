@@ -27,14 +27,19 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      loading: true
     };
   }
 
   componentDidMount() {
-    getDonationData().then(res => {
-      this.setState({ data: res.donations });
-    });
+    getDonationData()
+      .then(res => {
+        this.setState({ data: res.donations, loading: false });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -44,6 +49,7 @@ class App extends Component {
         <MastHead />
         <h1>Recent Oxfam Donors</h1>
         <DonationWrapper>
+          {this.state.loading && <p>Loading data...</p>}
           <Donation data={data} />
         </DonationWrapper>
       </Wrapper>
